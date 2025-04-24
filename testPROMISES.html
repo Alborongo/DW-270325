@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>TEST PROMISES</title>
+    </head>
+
+    <body>
+
+        <div>
+            <button onclick="callPromise()">VIRUS INSTA</button>
+        </div>
+
+        <script>
+            var urlApi = "https://api.restful-api.dev/objects"
+
+            var testPromise= new Promise((resolve, reject)=>{
+                var request = new XMLHttpRequest()
+                request.open("GET", urlApi)
+                request.responseType = "json"
+
+                request.onload = () => {
+                    if(request.status == 200){
+                        resolve(request.response)
+                    } else {
+                        reject("ERROR: FALTA FACHA")
+                    }
+
+                }
+                request.onerror = ()=>{
+                    reject("ERROR: TE CAES A PEDAZOS")
+                }
+                request.send()
+            })
+
+            function callPromise(){
+                testPromise.then(resolve => {
+                    console.log(resolve)
+                    alert(resolve[0].name)
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+            }
+        </script>
+    </body>
+</html>
